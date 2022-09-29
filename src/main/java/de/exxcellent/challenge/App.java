@@ -1,5 +1,10 @@
 package de.exxcellent.challenge;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+
 /**
  * The entry class for your solution. This class is only aimed as starting point and not intended as baseline for your software
  * design. Read: create your own classes and packages as appropriate.
@@ -14,12 +19,32 @@ public final class App {
      */
     public static void main(String... args) {
 
-        // Your preparation code …
+        if (args.length == 0 || args.length > 2)
+            printUsage();
+        List<String> switches =
+                Arrays.stream(args).takeWhile(arg -> arg.startsWith("--")).collect(Collectors.toList());
+        if (switches.size() > 1)
+            printUsage();
 
-        String dayWithSmallestTempSpread = "Someday";     // Your day analysis function call …
-        System.out.printf("Day with smallest temperature spread : %s%n", dayWithSmallestTempSpread);
+        String path = args[switches.size()];
+        if (switches.size() == 1 && switches.get(0).equals("--football")) {
+            analyzeFootball(path);
+        } else {
+            analyzeWeather(path);
+        }
+    }
 
+    private static void analyzeFootball(String path) {
         String teamWithSmallestGoalSpread = "A good team"; // Your goal analysis function call …
         System.out.printf("Team with smallest goal spread       : %s%n", teamWithSmallestGoalSpread);
+    }
+
+    private static void analyzeWeather(String path) {
+        String dayWithSmallestTempSpread = "Someday";     // Your day analysis function call …
+        System.out.printf("Day with smallest temperature spread : %s%n", dayWithSmallestTempSpread);
+    }
+
+    private static void printUsage() {
+        System.out.println("Usage: App <--football|--weather| > <path to file>");
     }
 }
