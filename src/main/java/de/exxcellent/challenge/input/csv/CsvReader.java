@@ -51,9 +51,11 @@ public class CsvReader<T> extends AbstractDataReader<T> {
         Map<String, Field> columnNameToField = buildColumnNameToFieldMap();
 
         try (BufferedReader br = new BufferedReader(source)) {
-            String[] columnNames = br.readLine().split(quotedSeparator);
-            if (columnNames.length == 0)
-                throw new IllegalStateException("File is empty.");
+            String firstLine = br.readLine();
+            if (firstLine == null || firstLine.isBlank())
+                throw new IllegalStateException("Source is empty.");
+
+            String[] columnNames = firstLine.split(quotedSeparator);
             if (Arrays.stream(columnNames).anyMatch(String::isEmpty))
                 throw new IllegalStateException("Column name may not be empty.");
             if (columnNames.length != columnNameToField.size())
