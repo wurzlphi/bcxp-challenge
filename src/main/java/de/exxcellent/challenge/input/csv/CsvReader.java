@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
@@ -14,11 +15,11 @@ import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.stream.Collectors;
 
-import de.exxcellent.challenge.input.FileDataReader;
+import de.exxcellent.challenge.input.AbstractDataReader;
 import de.exxcellent.challenge.input.util.Pair;
 
 
-public class CsvReader<T> extends FileDataReader<T> {
+public class CsvReader<T> extends AbstractDataReader<T> {
 
     public static final List<Pair<Class<?>, Function<String, ?>>> CONVERTERS = List.of(
             new Pair<>(double.class, Double::parseDouble),
@@ -39,8 +40,8 @@ public class CsvReader<T> extends FileDataReader<T> {
     private final char separator;
     private final String quotedSeparator;
 
-    public CsvReader(char separator, File fileToRead, Class<? extends T> objectType) {
-        super(fileToRead, objectType);
+    public CsvReader(char separator, Reader source, Class<? extends T> objectType) {
+        super(source, objectType);
         this.separator = separator;
         this.quotedSeparator = quoteSeparator(separator);
     }
@@ -48,13 +49,13 @@ public class CsvReader<T> extends FileDataReader<T> {
     public List<T> readData() throws IOException {
         Map<String, Field> columnNameToField = buildColumnNameToFieldMap();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(fileToRead))) {
+        try (BufferedReader br = new BufferedReader(source)) {
             String[] columnNames = br.lines().findFirst().map(line -> line.split(quotedSeparator))
                                      .orElseThrow(
                                              () -> new IllegalStateException("File is empty."));
             if (columnNames.length != columnNameToField.size())
                 throw new IllegalStateException(
-                        "Number of columns in file '" + fileToRead.getAbsolutePath() +
+                        "Number of columns in source '" + source +
                         "' doesn't match the " +
                         "number of annotated fields in class '" + objectType.getCanonicalName() +
                         "'.");
