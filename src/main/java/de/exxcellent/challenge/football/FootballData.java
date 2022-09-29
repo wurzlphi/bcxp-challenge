@@ -3,6 +3,9 @@ package de.exxcellent.challenge.football;
 import de.exxcellent.challenge.input.csv.CsvColumn;
 
 
+/**
+ * Data class holding football data.
+ */
 public class FootballData {
 
     @CsvColumn(columnName = "Team")

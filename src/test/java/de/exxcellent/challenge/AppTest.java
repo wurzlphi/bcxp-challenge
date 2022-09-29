@@ -25,7 +25,12 @@ class AppTest {
 
     @Test
     void runFootball() {
-        App.main("--football", "football.csv");
+        App.main("--football", "src/main/resources/de/exxcellent/challenge/football.csv");
+    }
+
+    @Test
+    void runWeather() {
+        App.main("--weather", "src/main/resources/de/exxcellent/challenge/weather.csv");
     }
 
 }
