@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 import de.exxcellent.challenge.football.FootballData;
 import de.exxcellent.challenge.input.csv.CsvReader;
-import de.exxcellent.challenge.util.Analysis;
+import de.exxcellent.challenge.util.ListUtil;
 import de.exxcellent.challenge.weather.WeatherData;
 
 
@@ -70,7 +70,7 @@ public final class App {
                                                                                 Function<? super T, N> keyComp) {
         try (var csv = new CsvReader<>(',', new FileReader(path), objectType)) {
             List<? extends T> data = csv.readData();
-            return Analysis.argmin(data, keyComp);
+            return ListUtil.argmin(data, keyComp);
         } catch (IOException e) {
             e.printStackTrace();
         }

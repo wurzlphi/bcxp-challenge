@@ -9,7 +9,7 @@ import java.util.function.Function;
 /**
  * Utility class for data analysis methods.
  */
-public class Analysis {
+public class ListUtil {
 
     /**
      * Find the entry in the given list associated with the minimum. Values for each item are
