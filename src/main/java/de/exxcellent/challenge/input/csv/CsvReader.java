@@ -11,6 +11,7 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.stream.Collectors;
@@ -76,7 +77,7 @@ public class CsvReader<T> extends AbstractDataReader<T> {
     }
 
     private Map<String, Field> buildColumnNameToFieldMap() {
-        List<Field> fieldsWithAnnotation = Arrays.stream(objectType.getFields()).filter(
+        List<Field> fieldsWithAnnotation = Arrays.stream(objectType.getDeclaredFields()).filter(
                 field -> field.getAnnotation(CsvColumn.class) != null &&
                          !Modifier.isStatic(field.getModifiers())).collect(
                 Collectors.toList());
@@ -96,7 +97,7 @@ public class CsvReader<T> extends AbstractDataReader<T> {
 
     private T instantiateNewObject() {
         try {
-            return objectType.getConstructor().newInstance();
+            return objectType.getDeclaredConstructor().newInstance();
         } catch (NoSuchMethodException | IllegalAccessException | InstantiationException |
                  InvocationTargetException e) {
             throw new RuntimeException(e);
