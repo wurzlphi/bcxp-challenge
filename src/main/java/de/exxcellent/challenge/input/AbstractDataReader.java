@@ -1,9 +1,7 @@
 package de.exxcellent.challenge.input;
 
-import java.io.Closeable;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.List;
 import java.util.Objects;
 
 

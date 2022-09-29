@@ -1,6 +1,5 @@
 package de.exxcellent.challenge;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -10,7 +9,6 @@ import java.util.stream.Collectors;
 
 import de.exxcellent.challenge.football.FootballData;
 import de.exxcellent.challenge.input.DataReader;
-import de.exxcellent.challenge.input.csv.CsvReader;
 import de.exxcellent.challenge.util.ListUtil;
 import de.exxcellent.challenge.weather.WeatherData;
 
