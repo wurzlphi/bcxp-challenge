@@ -1,8 +1,6 @@
 package de.exxcellent.challenge.input.csv;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.Field;
@@ -17,7 +15,7 @@ import java.util.regex.Matcher;
 import java.util.stream.Collectors;
 
 import de.exxcellent.challenge.input.AbstractDataReader;
-import de.exxcellent.challenge.input.util.Pair;
+import de.exxcellent.challenge.util.Pair;
 
 
 /**

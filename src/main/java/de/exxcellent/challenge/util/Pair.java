@@ -1,4 +1,4 @@
-package de.exxcellent.challenge.input.util;
+package de.exxcellent.challenge.util;
 
 /**
  * A simple pair to hold two associated objects.
