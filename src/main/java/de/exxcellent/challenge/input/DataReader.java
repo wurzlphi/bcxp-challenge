@@ -19,8 +19,7 @@ public interface DataReader<T> {
      * @return A list of objects representing the data in the given file
      * @throws IOException If the underlying source is a file which doesn't exist or is
      * inaccessible
-     * @throws ParseException If the data is malformed
      */
-    List<T> readData() throws IOException, ParseException;
+    List<T> readData() throws IOException;
 
 }

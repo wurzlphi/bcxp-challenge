@@ -20,6 +20,14 @@ import de.exxcellent.challenge.input.AbstractDataReader;
 import de.exxcellent.challenge.input.util.Pair;
 
 
+/**
+ * An implementation of {@link AbstractDataReader} that can handle csv files.
+ * Deserialization is realized by annotating the fields of a class with the interface
+ * {@link CsvColumn} and assigning names as they appear in the file.
+ *
+ * @see de.exxcellent.challenge.input.AbstractDataReader
+ * @see de.exxcellent.challenge.input.DataReader
+ */
 public class CsvReader<T> extends AbstractDataReader<T> {
 
     public static final List<Pair<Class<?>, Function<String, ?>>> CONVERTERS = List.of(
