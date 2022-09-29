@@ -115,6 +115,7 @@ public class CsvReader<T> extends AbstractDataReader<T> {
                 if (field.getType().isAssignableFrom(converter.key)) {
                     field.setAccessible(true);
                     field.set(object, converter.value.apply(value));
+                    return;
                 }
             }
         } catch (IllegalAccessException e) {
