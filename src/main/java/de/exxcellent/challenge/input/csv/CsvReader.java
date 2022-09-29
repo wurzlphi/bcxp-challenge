@@ -95,10 +95,6 @@ public class CsvReader<T> extends AbstractDataReader<T> {
             throw new IllegalStateException("Class '" + objectType.getCanonicalName() + "' does " +
                                             "not have any fields annotated with '" +
                                             CsvColumn.class.getCanonicalName() + "'.");
-        if (asMap.size() != fieldsWithAnnotation.size())
-            throw new IllegalStateException("Class '" + objectType.getCanonicalName() + "' maps " +
-                                            "multiple fields to the same column name. Multiple " +
-                                            "columns of the same name are not supported.");
         return asMap;
     }
 
