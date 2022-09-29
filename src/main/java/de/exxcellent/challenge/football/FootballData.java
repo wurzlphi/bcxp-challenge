@@ -18,7 +18,7 @@ public class FootballData {
     @CsvColumn(columnName = "Goals")
     public int goals;
     @CsvColumn(columnName = "Goals Allowed")
-    public int goals_allowed;
+    public int goalsAllowed;
     @CsvColumn(columnName = "Points")
     public int points;
 

@@ -2,6 +2,7 @@ package de.exxcellent.challenge.util;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 
 
@@ -21,10 +22,10 @@ public class Analysis {
      * @param <T> The type of data
      * @param <N> The key type
      */
-    public static <T, N extends Comparable<? super N>> T argmin(List<? extends T> data,
-                                                                       Function<? super T, N> keyComp) {
+    public static <T, N extends Comparable<? super N>> Optional<T> argmin(List<? extends T> data,
+                                                                          Function<? super T, N> keyComp) {
         return data.stream().map(d -> new Pair<>(d, keyComp.apply(d))).min(
-                Comparator.comparing(Pair::getValue)).map(Pair::getKey).orElse(null);
+                Comparator.comparing(Pair::getValue)).map(Pair::getKey);
     }
 
 }
