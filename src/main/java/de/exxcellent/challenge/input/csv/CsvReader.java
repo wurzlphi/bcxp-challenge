@@ -45,12 +45,10 @@ public class CsvReader<T> extends AbstractDataReader<T> {
             new Pair<>(String.class, (value) -> value)
     );
 
-    private final char separator;
     private final String quotedSeparator;
 
     public CsvReader(char separator, Reader source, Class<? extends T> objectType) {
         super(source, objectType);
-        this.separator = separator;
         this.quotedSeparator = quoteSeparator(separator);
     }
 
@@ -83,10 +81,6 @@ public class CsvReader<T> extends AbstractDataReader<T> {
                 return newObject;
             }).collect(Collectors.toList());
         }
-    }
-
-    public char getSeparator() {
-        return separator;
     }
 
     private Map<String, Field> buildColumnNameToFieldMap() {
