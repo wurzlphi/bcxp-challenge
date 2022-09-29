@@ -67,7 +67,10 @@ public class CsvReader<T> extends AbstractDataReader<T> {
                 T newObject = instantiateNewObject();
                 String[] values = line.split(quotedSeparator);
                 for (int i = 0; i < Math.min(values.length, columnNames.length); i++) {
-                    assignValue(newObject, columnNameToField.get(columnNames[i]), values[i]);
+                    Field field = Objects.requireNonNull(columnNameToField.get(columnNames[i]),
+                                                         "Column '" + columnNames[i] + "' is not " +
+                                                         "present as an annotation.");
+                    assignValue(newObject, field, values[i]);
                 }
                 return newObject;
             }).collect(Collectors.toList());
