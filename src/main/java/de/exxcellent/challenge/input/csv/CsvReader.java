@@ -22,6 +22,7 @@ import de.exxcellent.challenge.util.Pair;
  * An implementation of {@link AbstractDataReader} that can handle csv files.
  * Deserialization is realized by annotating the fields of a class with the interface
  * {@link CsvColumn} and assigning names as they appear in the file.
+ * Please note, that boxed types are currently not supported.
  *
  * @see de.exxcellent.challenge.input.AbstractDataReader
  * @see de.exxcellent.challenge.input.DataReader
@@ -66,8 +67,7 @@ public class CsvReader<T> extends AbstractDataReader<T> {
                 throw new IllegalStateException("Column name may not be empty.");
             if (columnNames.length != columnNameToField.size())
                 throw new IllegalStateException(
-                        "Number of columns in source '" + source +
-                        "' doesn't match the " +
+                        "Number of columns in source doesn't match the " +
                         "number of annotated fields in class '" + objectType.getCanonicalName() +
                         "'.");
 
