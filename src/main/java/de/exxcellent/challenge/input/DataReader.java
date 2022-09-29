@@ -1,7 +1,7 @@
 package de.exxcellent.challenge.input;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 
 
@@ -13,14 +13,14 @@ import java.util.List;
 public interface DataReader<T> {
 
     /**
-     * Reads data from the given {@link File} and tries to instantiate objects of the given
-     * {@link Class} with them.
+     * Reads data according to the configuration of this {@link DataReader}, e.g. from a file,
+     * instantiates objects, and returns them.
      *
-     * @param fileToRead The path/ file to read data from
-     * @param objectType The type of objects to be populated with the data
      * @return A list of objects representing the data in the given file
-     * @throws FileNotFoundException If the file doesn't exist, is inaccessible, or generally unreadable.
+     * @throws IOException If the underlying source is a file which doesn't exist or is
+     * inaccessible
+     * @throws ParseException If the data is malformed
      */
-    List<T> readData(File fileToRead, Class<? extends T> objectType) throws FileNotFoundException;
+    List<T> readData() throws IOException, ParseException;
 
 }
