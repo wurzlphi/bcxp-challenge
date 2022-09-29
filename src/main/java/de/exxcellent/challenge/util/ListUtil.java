@@ -34,4 +34,10 @@ public class ListUtil {
                 Comparator.comparing(Pair::getValue)).map(Pair::getKey);
     }
 
+    public static <T> Optional<T> findLast(List<? extends T> list) {
+        if (list.isEmpty())
+            return Optional.empty();
+        return Optional.ofNullable(list.get(list.size() - 1));
+    }
+
 }

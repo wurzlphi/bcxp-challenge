@@ -14,7 +14,7 @@ import java.util.Objects;
  *
  * @see de.exxcellent.challenge.input.DataReader
  */
-public abstract class AbstractDataReader<T> implements DataReader<T>, Closeable {
+public abstract class AbstractDataReader<T> implements DataReader<T> {
 
     protected final Reader source;
     protected final Class<? extends T> objectType;
@@ -23,13 +23,6 @@ public abstract class AbstractDataReader<T> implements DataReader<T>, Closeable 
         this.source = Objects.requireNonNull(source);
         this.objectType = Objects.requireNonNull(objectType);
     }
-
-    /**
-     * {@inheritDoc}
-     * After a call to this method, the underlying {@link Reader} will have been closed., i.e.
-     * this method is single use.
-     */
-    public abstract List<T> readData() throws IOException;
 
     @Override
     public void close() throws IOException {

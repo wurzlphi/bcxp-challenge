@@ -9,6 +9,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import de.exxcellent.challenge.football.FootballData;
+import de.exxcellent.challenge.input.DataReader;
 import de.exxcellent.challenge.input.csv.CsvReader;
 import de.exxcellent.challenge.util.ListUtil;
 import de.exxcellent.challenge.weather.WeatherData;
@@ -68,7 +69,8 @@ public final class App {
     private static <T, N extends Comparable<? super N>> Optional<T> runAnalysis(String path,
                                                                                 Class<T> objectType,
                                                                                 Function<? super T, N> keyComp) {
-        try (var csv = new CsvReader<>(',', new FileReader(path), objectType)) {
+        try (var csv =
+                     DataReader.Factory.createDataReader(path, objectType)) {
             List<? extends T> data = csv.readData();
             return ListUtil.argmin(data, keyComp);
         } catch (IOException e) {
