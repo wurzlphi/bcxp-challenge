@@ -51,9 +51,11 @@ public class CsvReader<T> extends AbstractDataReader<T> {
         Map<String, Field> columnNameToField = buildColumnNameToFieldMap();
 
         try (BufferedReader br = new BufferedReader(source)) {
-            String[] columnNames = br.lines().findFirst().map(line -> line.split(quotedSeparator))
-                                     .orElseThrow(
-                                             () -> new IllegalStateException("File is empty."));
+            String[] columnNames = br.readLine().split(quotedSeparator);
+            if (columnNames.length == 0)
+                throw new IllegalStateException("File is empty.");
+            if (Arrays.stream(columnNames).anyMatch(String::isEmpty))
+                throw new IllegalStateException("Column name may not be empty.");
             if (columnNames.length != columnNameToField.size())
                 throw new IllegalStateException(
                         "Number of columns in source '" + source +
@@ -61,7 +63,7 @@ public class CsvReader<T> extends AbstractDataReader<T> {
                         "number of annotated fields in class '" + objectType.getCanonicalName() +
                         "'.");
 
-            return br.lines().skip(1).map(line -> {
+            return br.lines().map(line -> {
                 T newObject = instantiateNewObject();
                 String[] values = line.split(quotedSeparator);
                 for (int i = 0; i < Math.min(values.length, columnNames.length); i++) {
